@@ -2,45 +2,46 @@ package logic
 
 import se.scalablesolutions.akka.actor.{Actor, FSM}
 
-case class Button(digit: Char)
+import scala.collection.mutable.ArrayBuffer
 
 class User {}
 
+case class Enter(user: User)
+case class Leave(user: User)
+case class Join(user: User)
+case class Unjoin(user: User)
+case class Move(user: User, position: Int)
+
 class StateData {
-  val board = Array(0, 0, 0,
+  var board = Array(0, 0, 0,
                     0, 0, 0,
                     0, 0, 0)
-  val users = Array[User]()
+  var players  = ArrayBuffer[User]()
+  var watchers = ArrayBuffer[User]()
 }
 
 object Lock {
   val TIMEOUT = 5000
 }
-/*
-class Tictactoe extends Actor with Fsm[StateData] {
-  def initialState = State(NextState, noUser, new StateData)
 
-  def noUser: StateFunction = {
-    case Event(Button(digit), sofar) =>
-      val sofar2 = sofar + digit
-      if (sofar2 == code) {
-        println("Opened")
-        State(NextState, open, "", Some(Lock.TIMEOUT))
-      } else {
-        if (sofar2.length < code.length) {
-          println(sofar2)
-          State(NextState, locked, sofar2)
-        } else {
-          println("Wrong code")
-          initialState
-        }
-      }
+class Tictactoe extends Actor with FSM[StateData] {
+  def initialState = State(NextState, notEnoughPlayers, new StateData)
+
+  def notEnoughPlayers: StateFunction = {
+    case Event(Enter(user), stateData) =>
+      stateData.watchers += user
+      State(NextState, notEnoughPlayers, stateData)
+
+    case Event(Leave(user), stateData) =>
+      if (stateData)
   }
 
-  def open: StateFunction = {
-    case Event(_, _) =>
-      println("Locked")
-      initialState
+  def redTurn: StateFunction = {
+  }
+
+  def blackTurn: StateFunction = {
+  }
+
+  def gameOver: StateFunction = {
   }
 }
-*/
