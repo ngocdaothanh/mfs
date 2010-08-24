@@ -1,7 +1,6 @@
 package logic
 
-import actor.Fsm
-import se.scalablesolutions.akka.actor.Actor
+import se.scalablesolutions.akka.actor.{Actor, FSM}
 
 case class Button(digit: Char)
 
