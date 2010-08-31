@@ -1,7 +1,6 @@
 import sbt._
 
 class Project(info: ProjectInfo) extends DefaultProject(info) {
-/*
   // From http://github.com/jboner/akka/blob/master/project/build/AkkaProject.scala
   lazy val AkkaRepo               = MavenRepository("Akka Repository",      "http://scalablesolutions.se/akka/repository")
   lazy val CodehausRepo           = MavenRepository("Codehaus Repo",        "http://repository.codehaus.org")
@@ -15,9 +14,8 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   override def libraryDependencies = Set(
     "se.scalablesolutions.akka" % "akka-core_2.8.0" % "0.10"
   ) ++ super.libraryDependencies
-*/
 
   //val akkaHome = Path.fromFile(System.getenv("AKKA_HOME"))
-  val akkaHome = Path.fromFile(System.getProperty("user.home") + "/plain/akka")
-  override def unmanagedClasspath = (akkaHome / "dist" **"*.jar") +++ (akkaHome / "lib_managed" ** "*.jar")
+  //val akkaHome = Path.fromFile(System.getProperty("user.home") + "/plain/akka")
+  //override def unmanagedClasspath = (akkaHome / "dist" **"*.jar") +++ (akkaHome / "lib_managed" ** "*.jar")
 }
