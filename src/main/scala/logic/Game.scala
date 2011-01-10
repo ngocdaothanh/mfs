@@ -1,18 +1,18 @@
 package logic
 
 import scala.collection.mutable.ArrayBuffer
-import se.scalablesolutions.akka.actor.ActorRef
+import akka.actor.ActorRef
 
 object MoveResult extends Enumeration {
-	type MoveResult = Value
-	val Invalid, Valid, GameOver = Value
+  type MoveResult = Value
+  val Invalid, Valid, GameOver = Value
 }
 
 import MoveResult._
 
 trait Game[MoveData] {
   val players  = ArrayBuffer.empty[Option[ActorRef]]
-	var nextMover: ActorRef = null
+  var nextMover: ActorRef = null
 
-	def move(userRef: ActorRef, moveData: MoveData): MoveResult
+  def move(userRef: ActorRef, moveData: MoveData): MoveResult
 }
